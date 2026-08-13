@@ -8,7 +8,8 @@ import type { Produit } from "./types";
  */
 export const WHATSAPP_NUMERO: string | null = null;
 
-function lienWhatsApp(message: string): string {
+/** Construction générique d'un lien wa.me — pas de sémantique "commande" ici. */
+export function lienWhatsApp(message: string): string {
   const base = WHATSAPP_NUMERO
     ? `https://wa.me/${WHATSAPP_NUMERO}`
     : "https://api.whatsapp.com/send";

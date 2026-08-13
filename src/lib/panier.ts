@@ -30,6 +30,25 @@ export function resoudreLigne(
   return { produit, variante };
 }
 
+export interface LigneResolue {
+  ligne: LignePanier;
+  produit: Produit;
+  variante: Variante;
+}
+
+/** Résout chaque ligne contre le catalogue ; écarte celles qui ne s'y trouvent plus. */
+export function lignesResolues(
+  lignes: LignePanier[],
+  catalogue: Produit[] = PRODUITS
+): LigneResolue[] {
+  const resultat: LigneResolue[] = [];
+  for (const ligne of lignes) {
+    const resolue = resoudreLigne(ligne, catalogue);
+    if (resolue) resultat.push({ ligne, produit: resolue.produit, variante: resolue.variante });
+  }
+  return resultat;
+}
+
 /** Écarte silencieusement les lignes dont le produit ou la variante n'existe plus (spec §4.1). */
 export function nettoyerLignes(
   lignes: LignePanier[],
