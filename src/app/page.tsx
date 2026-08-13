@@ -1,69 +1,113 @@
-import Image from "next/image";
+import Link from "next/link";
+import { siPlaystation } from "simple-icons";
+import { Gamepad2, History, Joystick } from "lucide-react";
+import CarrouselProduits from "@/components/CarrouselProduits";
+import Container from "@/components/Container";
+import LogoMarque from "@/components/LogoMarque";
+import { PRODUITS } from "@/lib/data";
+import { FAMILLE_COULEUR } from "@/lib/familles";
+import { FAMILLES } from "@/lib/types";
+import type { Famille } from "@/lib/types";
 
-export default function Home() {
+const ICONE_FAMILLE: Record<Famille, React.ReactNode> = {
+  PlayStation: <LogoMarque icon={siPlaystation} className="h-8 w-8 sm:h-10 sm:w-10" color={`#${siPlaystation.hex}`} />,
+  Xbox: <Gamepad2 className="h-8 w-8 sm:h-10 sm:w-10" strokeWidth={1.5} style={{ color: FAMILLE_COULEUR.Xbox }} />,
+  Nintendo: <Joystick className="h-8 w-8 sm:h-10 sm:w-10" strokeWidth={1.5} style={{ color: FAMILLE_COULEUR.Nintendo }} />,
+  Rétro: <History className="h-8 w-8 sm:h-10 sm:w-10" strokeWidth={1.5} style={{ color: FAMILLE_COULEUR.Rétro }} />,
+};
+
+const ONGLETS = [
+  { label: "Dernier", href: "/catalogue?tri=recent" },
+  { label: "Collections", href: "/catalogue" },
+  { label: "Offres", href: "/nouvelles?type=Offre" },
+  { label: "Boutiques", href: "/a-propos#boutiques" },
+];
+
+function nouveautes() {
+  return [...PRODUITS].sort((a, b) => b.dateAjout.localeCompare(a.dateAjout)).slice(0, 8);
+}
+
+function parCategorie(categorie: string) {
+  return PRODUITS.filter((p) => p.categorie === categorie);
+}
+
+export default function PageAccueil() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="flex flex-col">
+      <nav className="border-b border-card-border">
+        <Container className="no-scrollbar flex gap-5 overflow-x-auto py-3 text-sm font-medium text-text-muted">
+          {ONGLETS.map((o) => (
+            <Link key={o.label} href={o.href} className="shrink-0 whitespace-nowrap hover:text-marine">
+              {o.label}
+            </Link>
+          ))}
+        </Container>
+      </nav>
+
+      <section className="bg-bg-alt">
+        <Container className="py-6">
+          <div className="flex h-[220px] flex-col items-start justify-end gap-3 rounded-lg border border-card-border bg-card-bg p-5 card-shadow">
+            <p className="max-w-xs text-lg font-semibold leading-snug text-marine">
+              [Accroche à fournir]
+            </p>
+            <Link
+              href="/catalogue"
+              className="rounded-pill bg-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-dark"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+              Voir le catalogue
+            </Link>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-bg">
+        <Container className="py-6">
+          <h2 className="font-display text-[22px] font-bold mt-0 mb-4 text-marine">
+            Quelle est votre console ?
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {FAMILLES.map((f) => (
+              <Link
+                key={f}
+                href={`/catalogue?plat=${encodeURIComponent(f)}`}
+                className="flex aspect-square flex-col items-center justify-center gap-2 rounded-md border border-card-border bg-card-bg text-center card-shadow transition-transform duration-150 hover:-translate-y-0.5"
+                style={{ borderBottomWidth: "3px", borderBottomColor: FAMILLE_COULEUR[f] }}
+              >
+                {ICONE_FAMILLE[f]}
+                <span className="font-display text-base font-semibold text-text sm:text-lg">
+                  {f}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-bg-alt">
+        <Container className="py-2">
+          <CarrouselProduits titre="Nouveautés" produits={nouveautes()} lienTout="/catalogue?tri=recent" />
+        </Container>
+      </section>
+
+      <section className="bg-bg">
+        <Container className="py-2">
+          <CarrouselProduits
+            titre="Manettes"
+            produits={parCategorie("Manettes")}
+            lienTout="/catalogue?cat=Manettes"
+          />
+        </Container>
+      </section>
+
+      <section className="bg-bg-alt pb-12">
+        <Container className="py-2">
+          <CarrouselProduits
+            titre="Cartes cadeaux"
+            produits={parCategorie("Cartes cadeaux")}
+            lienTout="/catalogue?cat=Cartes%20cadeaux"
+          />
+        </Container>
+      </section>
     </div>
   );
 }
