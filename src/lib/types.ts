@@ -24,9 +24,15 @@ export type Plateforme =
   | "Rétro"
   | "Multi";
 
-export type Famille = "PlayStation" | "Xbox" | "Nintendo" | "Rétro";
+export type Famille = "PlayStation" | "Xbox" | "Nintendo" | "Rétro" | "Multi-plateformes";
 
-export const FAMILLES: Famille[] = ["PlayStation", "Xbox", "Nintendo", "Rétro"];
+export const FAMILLES: Famille[] = [
+  "PlayStation",
+  "Xbox",
+  "Nintendo",
+  "Rétro",
+  "Multi-plateformes",
+];
 
 export type Genre =
   | "Action"
@@ -52,6 +58,8 @@ export const GENRES: Genre[] = [
 export type Disponibilite = "En stock" | "Sur commande" | "Épuisé";
 
 export interface Variante {
+  /** Identifiant stable, unique dans le produit — identifie une ligne de panier (spec §2.2). */
+  id: string;
   plateforme: Plateforme;
   prix: number | null;
   disponibilite: Disponibilite;

@@ -45,6 +45,27 @@
   --fam-xbox: #107c10;
   --fam-nintendo: #e60012;
   --fam-retro: #6b7280;
+  --fam-multi: #6b7280;
+
+  /* Déclinaisons pré-calculées par famille (spec §9 : color-mix() proscrit,
+     navigateurs Android anciens). Remplacent le mélange dynamique dans le
+     bloc de prix et les cartes de famille : doux = fond, bordure = liseré,
+     actif = ligne sélectionnée. */
+  --fam-playstation-soft: rgba(0, 112, 209, 0.16);
+  --fam-playstation-border: rgba(0, 112, 209, 0.45);
+  --fam-playstation-active: rgba(0, 112, 209, 0.22);
+  --fam-xbox-soft: rgba(16, 124, 16, 0.16);
+  --fam-xbox-border: rgba(16, 124, 16, 0.45);
+  --fam-xbox-active: rgba(16, 124, 16, 0.22);
+  --fam-nintendo-soft: rgba(230, 0, 18, 0.16);
+  --fam-nintendo-border: rgba(230, 0, 18, 0.45);
+  --fam-nintendo-active: rgba(230, 0, 18, 0.22);
+  --fam-retro-soft: rgba(107, 114, 128, 0.16);
+  --fam-retro-border: rgba(107, 114, 128, 0.45);
+  --fam-retro-active: rgba(107, 114, 128, 0.22);
+  --fam-multi-soft: rgba(107, 114, 128, 0.16);
+  --fam-multi-border: rgba(107, 114, 128, 0.45);
+  --fam-multi-active: rgba(107, 114, 128, 0.22);
 
   /* Action WhatsApp — exclusivement le bouton de commande */
   --whatsapp: #25d366;
@@ -52,7 +73,7 @@
 
   /* Accent local de plateforme — piloté par SelecteurPlateforme, jamais par défaut */
   --accent: var(--fg-marine-light);
-  --accent-soft: color-mix(in srgb, var(--accent) 16%, var(--fg-marine));
+  --accent-soft: #1f2566;
 
   /* Espacements */
   --space-1: 4px;

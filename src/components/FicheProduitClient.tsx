@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChevronLeft, Heart, PackageCheck, Layers, ShieldCheck, Truck } from "lucide-react";
+import { ChevronLeft, PackageCheck, Layers, ShieldCheck, Truck } from "lucide-react";
 import ImageBanniereProduit from "./ImageBanniereProduit";
 import SelecteurPlateforme from "./SelecteurPlateforme";
 import BlocPrix from "./BlocPrix";
@@ -10,11 +10,9 @@ import BoutonWhatsApp from "./BoutonWhatsApp";
 import CarrouselProduits from "./CarrouselProduits";
 import Container from "./Container";
 import { PRODUITS } from "@/lib/data";
-import { FAMILLE_COULEUR, estMulti, famillesDuProduit, variantesDeFamille } from "@/lib/familles";
+import { estMulti, famillesDuProduit, variantesDeFamille } from "@/lib/familles";
 import { lienCommandeProduit } from "@/lib/whatsapp";
 import type { Famille, Produit } from "@/lib/types";
-
-const ACCENT_DEFAUT = "var(--fg-marine-light)";
 
 const INFOS_PRATIQUES = [
   { Icone: PackageCheck, label: "Disponibilité", valeur: "[À fournir]" },
@@ -48,7 +46,6 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
     return [];
   }, [produit, familleEffective, multi]);
 
-  const accentColor = familleEffective ? FAMILLE_COULEUR[familleEffective] : ACCENT_DEFAUT;
   const varianteActive = variantesAffichees[varianteIndex] ?? variantesAffichees[0] ?? null;
 
   function choisirFamille(f: Famille) {
@@ -143,11 +140,11 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
                 </div>
               )}
 
-              {blocPret && variantesAffichees.length > 0 && (
+              {blocPret && familleEffective && variantesAffichees.length > 0 && (
                 <div className="mt-5">
                   <BlocPrix
                     variantes={variantesAffichees}
-                    accentColor={accentColor}
+                    famille={familleEffective}
                     varianteActive={varianteIndex}
                     onSelect={setVarianteIndex}
                   />
@@ -155,14 +152,12 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
               )}
 
               {blocPret && varianteActive && (
-                <div className="mt-5 flex items-center gap-3">
+                <div className="mt-5">
                   <BoutonWhatsApp
-                    className="flex-1"
                     href={lienCommandeProduit(produit, familleEffective, varianteActive.plateforme)}
                   >
                     Commander sur WhatsApp
                   </BoutonWhatsApp>
-                  <BoutonFavoris />
                 </div>
               )}
             </div>
@@ -201,23 +196,5 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
         )}
       </Container>
     </div>
-  );
-}
-
-function BoutonFavoris() {
-  const [actif, setActif] = useState(false);
-  return (
-    <button
-      onClick={() => setActif((a) => !a)}
-      aria-pressed={actif}
-      aria-label="Ajouter aux favoris"
-      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-hero-border transition-colors hover:bg-white/10"
-    >
-      <Heart
-        className="h-5 w-5"
-        style={{ color: actif ? "var(--fg-red)" : "white" }}
-        fill={actif ? "var(--fg-red)" : "none"}
-      />
-    </button>
   );
 }

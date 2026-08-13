@@ -1,9 +1,9 @@
 import type { Article, Produit } from "./types";
 
 /**
- * Jeu de données d'essai (spec §2.4) : 15 produits fictifs, prix à `null`
- * partout. Les titres repris sont des titres publics utilisés à titre
- * d'exemple pour la maquette — aucun prix ni stock réel n'est représenté.
+ * Jeu de données d'essai (spec §2.6) : 18 produits fictifs. Sept portent
+ * un prix connu (quatre manettes mono-variantes, trois jeux PS4
+ * multi-variantes) ; le reste reste à `null`. Aucun prix inventé.
  */
 export const PRODUITS: Produit[] = [
   {
@@ -15,10 +15,10 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Sport"],
     variantes: [
-      { plateforme: "PS5", prix: null, disponibilite: "En stock" },
-      { plateforme: "PS4", prix: null, disponibilite: "En stock" },
-      { plateforme: "Xbox Series", prix: null, disponibilite: "En stock" },
-      { plateforme: "Nintendo Switch", prix: null, disponibilite: "Sur commande" },
+      { id: "ea-sports-fc-25-ps5", plateforme: "PS5", prix: null, disponibilite: "En stock" },
+      { id: "ea-sports-fc-25-ps4", plateforme: "PS4", prix: 10000, disponibilite: "En stock" },
+      { id: "ea-sports-fc-25-xbox-series", plateforme: "Xbox Series", prix: null, disponibilite: "En stock" },
+      { id: "ea-sports-fc-25-switch", plateforme: "Nintendo Switch", prix: null, disponibilite: "Sur commande" },
     ],
     miseEnAvant: true,
     dateAjout: "2026-08-05",
@@ -32,8 +32,8 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Action", "Aventure"],
     variantes: [
-      { plateforme: "PS5", prix: null, disponibilite: "En stock" },
-      { plateforme: "PS4", prix: null, disponibilite: "En stock" },
+      { id: "god-of-war-ragnarok-ps5", plateforme: "PS5", prix: null, disponibilite: "En stock" },
+      { id: "god-of-war-ragnarok-ps4", plateforme: "PS4", prix: 10000, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-07-20",
@@ -47,8 +47,8 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Course"],
     variantes: [
-      { plateforme: "Xbox Series", prix: null, disponibilite: "En stock" },
-      { plateforme: "Xbox One", prix: null, disponibilite: "En stock" },
+      { id: "forza-horizon-5-xbox-series", plateforme: "Xbox Series", prix: null, disponibilite: "En stock" },
+      { id: "forza-horizon-5-xbox-one", plateforme: "Xbox One", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-06-14",
@@ -62,7 +62,7 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Aventure", "Rôle"],
     variantes: [
-      { plateforme: "Nintendo Switch", prix: null, disponibilite: "Sur commande" },
+      { id: "zelda-totk-switch", plateforme: "Nintendo Switch", prix: null, disponibilite: "Sur commande" },
     ],
     miseEnAvant: true,
     dateAjout: "2026-08-08",
@@ -76,9 +76,10 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Combat"],
     variantes: [
-      { plateforme: "PS5", prix: null, disponibilite: "En stock" },
-      { plateforme: "Xbox Series", prix: null, disponibilite: "En stock" },
-      { plateforme: "Nintendo Switch", prix: null, disponibilite: "Épuisé" },
+      { id: "mortal-kombat-1-ps5", plateforme: "PS5", prix: null, disponibilite: "En stock" },
+      { id: "mortal-kombat-1-ps4", plateforme: "PS4", prix: 10000, disponibilite: "En stock" },
+      { id: "mortal-kombat-1-xbox-series", plateforme: "Xbox Series", prix: null, disponibilite: "En stock" },
+      { id: "mortal-kombat-1-switch", plateforme: "Nintendo Switch", prix: null, disponibilite: "Épuisé" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-05-02",
@@ -92,7 +93,7 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Course", "Famille"],
     variantes: [
-      { plateforme: "Nintendo Switch", prix: null, disponibilite: "En stock" },
+      { id: "mario-kart-8-deluxe-switch", plateforme: "Nintendo Switch", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-04-11",
@@ -106,7 +107,7 @@ export const PRODUITS: Produit[] = [
     description: "[Description à fournir]",
     genres: ["Action", "Famille"],
     variantes: [
-      { plateforme: "Rétro", prix: null, disponibilite: "En stock" },
+      { id: "sonic-the-hedgehog-2-retro", plateforme: "Rétro", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-03-01",
@@ -119,7 +120,7 @@ export const PRODUITS: Produit[] = [
     imageBanniere: "console-playstation-5-banniere",
     description: "[Description à fournir]",
     variantes: [
-      { plateforme: "PS5", prix: null, disponibilite: "En stock" },
+      { id: "console-playstation-5-ps5", plateforme: "PS5", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: true,
     dateAjout: "2026-08-01",
@@ -132,7 +133,7 @@ export const PRODUITS: Produit[] = [
     imageBanniere: "console-xbox-series-x-banniere",
     description: "[Description à fournir]",
     variantes: [
-      { plateforme: "Xbox Series", prix: null, disponibilite: "Sur commande" },
+      { id: "console-xbox-series-x-xbox-series", plateforme: "Xbox Series", prix: null, disponibilite: "Sur commande" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-07-15",
@@ -145,7 +146,7 @@ export const PRODUITS: Produit[] = [
     imageBanniere: "console-nintendo-switch-oled-banniere",
     description: "[Description à fournir]",
     variantes: [
-      { plateforme: "Nintendo Switch", prix: null, disponibilite: "En stock" },
+      { id: "console-nintendo-switch-oled-switch", plateforme: "Nintendo Switch", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-06-25",
@@ -158,10 +159,49 @@ export const PRODUITS: Produit[] = [
     imageBanniere: "manette-dualsense-banniere",
     description: "[Description à fournir]",
     variantes: [
-      { plateforme: "PS5", prix: null, disponibilite: "En stock" },
+      { id: "manette-dualsense-ps5", plateforme: "PS5", prix: 70000, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-07-02",
+  },
+  {
+    id: "manette-dualsense-camo",
+    nom: "Manette DualSense camo",
+    categorie: "Manettes",
+    images: ["dualsense-camo-1"],
+    imageBanniere: "manette-dualsense-camo-banniere",
+    description: "[Description à fournir]",
+    variantes: [
+      { id: "manette-dualsense-camo-ps5", plateforme: "PS5", prix: 80000, disponibilite: "En stock" },
+    ],
+    miseEnAvant: false,
+    dateAjout: "2026-07-28",
+  },
+  {
+    id: "manette-switch-pro",
+    nom: "Manette Switch Pro",
+    categorie: "Manettes",
+    images: ["switch-pro-1"],
+    imageBanniere: "manette-switch-pro-banniere",
+    description: "[Description à fournir]",
+    variantes: [
+      { id: "manette-switch-pro-switch", plateforme: "Nintendo Switch", prix: 40000, disponibilite: "En stock" },
+    ],
+    miseEnAvant: false,
+    dateAjout: "2026-06-30",
+  },
+  {
+    id: "manette-xbox",
+    nom: "Manette Xbox",
+    categorie: "Manettes",
+    images: ["manette-xbox-1"],
+    imageBanniere: "manette-xbox-banniere",
+    description: "[Description à fournir]",
+    variantes: [
+      { id: "manette-xbox-xbox-series", plateforme: "Xbox Series", prix: 50000, disponibilite: "En stock" },
+    ],
+    miseEnAvant: false,
+    dateAjout: "2026-06-18",
   },
   {
     id: "manette-joy-con-paire",
@@ -171,7 +211,7 @@ export const PRODUITS: Produit[] = [
     imageBanniere: "manette-joy-con-paire-banniere",
     description: "[Description à fournir]",
     variantes: [
-      { plateforme: "Nintendo Switch", prix: null, disponibilite: "En stock" },
+      { id: "manette-joy-con-paire-switch", plateforme: "Nintendo Switch", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-05-18",
@@ -183,7 +223,9 @@ export const PRODUITS: Produit[] = [
     images: ["casque-1"],
     imageBanniere: "casque-gaming-universel-banniere",
     description: "[Description à fournir]",
-    variantes: [{ plateforme: "Multi", prix: null, disponibilite: "En stock" }],
+    variantes: [
+      { id: "casque-gaming-universel-multi", plateforme: "Multi", prix: null, disponibilite: "En stock" },
+    ],
     miseEnAvant: false,
     dateAjout: "2026-04-28",
   },
@@ -194,7 +236,9 @@ export const PRODUITS: Produit[] = [
     images: ["cable-1"],
     imageBanniere: "cable-hdmi-2-1-banniere",
     description: "[Description à fournir]",
-    variantes: [{ plateforme: "Multi", prix: null, disponibilite: "Épuisé" }],
+    variantes: [
+      { id: "cable-hdmi-2-1-multi", plateforme: "Multi", prix: null, disponibilite: "Épuisé" },
+    ],
     miseEnAvant: false,
     dateAjout: "2026-02-19",
   },
@@ -206,14 +250,14 @@ export const PRODUITS: Produit[] = [
     imageBanniere: "carte-cadeau-playstation-store-banniere",
     description: "[Description à fournir]",
     variantes: [
-      { plateforme: "PS5", prix: null, disponibilite: "En stock" },
+      { id: "carte-cadeau-playstation-store-ps5", plateforme: "PS5", prix: null, disponibilite: "En stock" },
     ],
     miseEnAvant: false,
     dateAjout: "2026-08-09",
   },
 ];
 
-/** Trois articles de substitution pour /nouvelles (spec §5.7). */
+/** Trois articles de substitution pour /nouvelles (spec §6.7). */
 export const ARTICLES: Article[] = [
   {
     id: "article-1",

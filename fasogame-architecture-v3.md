@@ -135,6 +135,9 @@ Les filtres et la signalétique fonctionnent par famille, pas par modèle.
 | Xbox | Xbox Series, Xbox One, Xbox 360 | `#107C10` |
 | Nintendo | Nintendo Switch | `#E60012` |
 | Rétro | consoles anciennes | `#6B7280` |
+| Multi-plateformes | Multi | `#6B7280` |
+
+**Multi-plateformes** est une cinquième famille, ajoutée en v3 pour les produits sans console associée (plateforme `Multi`, voir 2.2). Elle partage la teinte de Rétro (`#6B7280`) mais porte un libellé propre pour ne pas être confondue avec elle. Elle apparaît dans le filtre plateforme, en dernière position — un produit invisible dans les filtres serait un produit introuvable — mais n'apparaît pas dans le bloc « Quelle est votre console ? » de l'accueil (6.1), qui reste à quatre consoles.
 
 ### 2.5 Fonctions utilitaires attendues
 
@@ -148,9 +151,13 @@ totalPanier(lignes, catalogue)  → { sousTotal, nombreArticles }
 
 `prixMinimum` ignore les variantes à `null`. Si toutes valent `null`, la carte affiche `[Prix à fournir]`.
 
+`famillesDuProduit` retourne `["Multi"]` pour un produit dont l'unique variante porte la plateforme `Multi` (famille Multi-plateformes, voir 2.4).
+
+`nombreArticles` est la **somme des quantités** des lignes de panier, pas le nombre de lignes : une ligne à quantité 3 compte pour 3, pas pour 1. C'est cette valeur qu'affichent le badge de l'en-tête (4.3) et le compteur de la page panier (4.4). Accord en nombre : « 1 article » au singulier, « N articles » au pluriel.
+
 ### 2.6 Jeu de données d'essai
 
-15 produits fictifs couvrant les cinq catégories et les quatre familles, dont au moins trois multi-plateformes. Noms de produits réels acceptés (ce sont des titres publics). Renseigner les cinq prix connus ci-dessus ; laisser les autres à `null`.
+18 produits fictifs couvrant les cinq catégories et les cinq familles (PlayStation, Xbox, Nintendo, Rétro, Multi-plateformes), dont au moins trois multi-plateformes. Noms de produits réels acceptés (ce sont des titres publics). Renseigner les prix connus ci-dessus — quatre manettes mono-variantes (prix exact) et trois jeux PS4 multi-variantes (« à partir de ») — soit sept produits tarifés sur dix-huit ; laisser les autres à `null`.
 
 ---
 
@@ -599,12 +606,18 @@ Description, puis produits similaires.
 **Comportement**
 
 1. Seules les plateformes réellement disponibles apparaissent.
-2. Produit mono-variante : aucun bouton, le bloc de prix est ouvert d'emblée.
+2. Produit mono-variante : aucun bouton, le bloc de prix est ouvert d'emblée. Cela inclut les produits de la famille Multi-plateformes (2.4), toujours mono-variante.
 3. Au clic, le bouton actif passe en plein, les autres restent en contour.
 4. Le bloc de prix liste **toutes les variantes de la famille choisie**. PlayStation sélectionné affiche PS5 et PS4 séparément, chacune avec son prix et sa disponibilité.
 5. Chaque ligne du bloc est cliquable et devient la variante retenue pour l'ajout au panier. Une variante est toujours sélectionnée par défaut : la première en stock, sinon la première de la liste.
 6. Le message WhatsApp direct se recompose avec la variante retenue.
 7. Le choix s'inscrit dans l'URL : `?plat=PlayStation`.
+
+**Variantes épuisées**
+
+- Une variante `Épuisé` reste **visible** dans le bloc de prix : ligne grisée, non sélectionnable, mention « Épuisé » en rouge. Le client doit savoir que la version existe, même indisponible.
+- Si toutes les variantes de la famille choisie sont épuisées, le bouton de famille reste cliquable et affiche le bloc avec toutes les lignes grisées ; le bouton « Ajouter au panier » est alors remplacé par « Prévenez-moi — `[À définir]` », inactif.
+- La sélection par défaut (point 5) ne retient jamais une variante épuisée s'il existe une variante disponible dans la famille.
 
 **Transition** — 220 ms `ease-out`, bloc de prix en fondu ascendant (opacité 0→1, translation 8 px). Sous `prefers-reduced-motion`, changement instantané sans translation.
 

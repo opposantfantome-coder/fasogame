@@ -2,7 +2,7 @@ import Link from "next/link";
 import GrilleProduits from "./GrilleProduits";
 import Container from "./Container";
 import { PRODUITS } from "@/lib/data";
-import { FAMILLE_COULEUR, famillesDuProduit } from "@/lib/familles";
+import { FAMILLE_ACCENT, FAMILLE_COULEUR, famillesDuProduit } from "@/lib/familles";
 import { FAMILLES } from "@/lib/types";
 import type { Categorie } from "@/lib/types";
 
@@ -32,7 +32,7 @@ export default function VitrineCategorie({
               href={`/catalogue?cat=${encodeURIComponent(categorie)}&plat=${encodeURIComponent(famille)}`}
               className="flex flex-col justify-between gap-6 rounded-md border bg-card-bg p-4 card-shadow transition-transform duration-150 hover:-translate-y-0.5"
               style={{
-                borderColor: `color-mix(in srgb, ${FAMILLE_COULEUR[famille]} 35%, var(--fg-card-border))`,
+                borderColor: FAMILLE_ACCENT[famille].bordure,
                 borderBottomWidth: "3px",
                 borderBottomColor: FAMILLE_COULEUR[famille],
               }}

@@ -6,10 +6,13 @@ import Container from "@/components/Container";
 import LogoMarque from "@/components/LogoMarque";
 import { PRODUITS } from "@/lib/data";
 import { FAMILLE_COULEUR } from "@/lib/familles";
-import { FAMILLES } from "@/lib/types";
-import type { Famille } from "@/lib/types";
 
-const ICONE_FAMILLE: Record<Famille, React.ReactNode> = {
+/** Le sélecteur de console de l'accueil reste à quatre familles (spec §2.4) : Multi-plateformes n'y figure pas. */
+type FamilleConsole = "PlayStation" | "Xbox" | "Nintendo" | "Rétro";
+
+const FAMILLES_ACCUEIL: FamilleConsole[] = ["PlayStation", "Xbox", "Nintendo", "Rétro"];
+
+const ICONE_FAMILLE: Record<FamilleConsole, React.ReactNode> = {
   PlayStation: <LogoMarque icon={siPlaystation} className="h-8 w-8 sm:h-10 sm:w-10" color={`#${siPlaystation.hex}`} />,
   Xbox: <Gamepad2 className="h-8 w-8 sm:h-10 sm:w-10" strokeWidth={1.5} style={{ color: FAMILLE_COULEUR.Xbox }} />,
   Nintendo: <Joystick className="h-8 w-8 sm:h-10 sm:w-10" strokeWidth={1.5} style={{ color: FAMILLE_COULEUR.Nintendo }} />,
@@ -66,7 +69,7 @@ export default function PageAccueil() {
             Quelle est votre console ?
           </h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {FAMILLES.map((f) => (
+            {FAMILLES_ACCUEIL.map((f) => (
               <Link
                 key={f}
                 href={`/catalogue?plat=${encodeURIComponent(f)}`}
