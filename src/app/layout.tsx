@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import BarreSuperieure from "@/components/BarreSuperieure";
 import PiedDePage from "@/components/PiedDePage";
+import { PanierProvider } from "@/components/PanierProvider";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -38,9 +39,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${spaceGrotesk.variable} ${inter.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-bg text-text">
-        <BarreSuperieure />
-        <main className="flex-1 pt-[60px]">{children}</main>
-        <PiedDePage />
+        <PanierProvider>
+          <BarreSuperieure />
+          <main className="flex-1 pt-[60px]">{children}</main>
+          <PiedDePage />
+        </PanierProvider>
       </body>
     </html>
   );

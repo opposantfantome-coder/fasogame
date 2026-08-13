@@ -79,6 +79,13 @@ export interface Produit {
   dateAjout: string;
 }
 
+/** Une ligne de panier ne stocke que des identifiants et une quantité (spec §2.3). */
+export interface LignePanier {
+  produitId: string;
+  varianteId: string;
+  quantite: number;
+}
+
 export type TypeArticle = "Offre" | "Événement" | "Annonce";
 
 export interface Article {
