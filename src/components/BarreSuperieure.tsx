@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import MenuTiroir from "./MenuTiroir";
 import ChampRecherche from "./ChampRecherche";
 import Container from "./Container";
+import { usePanier } from "./PanierProvider";
 import { lienContact } from "@/lib/whatsapp";
 
 export default function BarreSuperieure() {
@@ -15,6 +16,7 @@ export default function BarreSuperieure() {
   const [scrolled, setScrolled] = useState(false);
   const [recherche, setRecherche] = useState("");
   const router = useRouter();
+  const { totaux } = usePanier();
 
   useEffect(() => {
     function onScroll() {
@@ -94,7 +96,19 @@ export default function BarreSuperieure() {
                 FASOGAME
               </Link>
 
-              <div className="flex flex-1 justify-end">
+              <div className="flex flex-1 items-center justify-end gap-1">
+                <Link
+                  href="/panier"
+                  aria-label="Voir le panier"
+                  className="relative flex h-11 w-11 shrink-0 items-center justify-center"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  {totaux.nombreArticles > 0 && (
+                    <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red px-1 text-[10px] font-semibold leading-none text-white">
+                      {totaux.nombreArticles}
+                    </span>
+                  )}
+                </Link>
                 <a
                   href={lienContact()}
                   target="_blank"

@@ -13,7 +13,7 @@ export default function PastillePlateforme({
     >
       <span
         role="tooltip"
-        className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-marine-dark px-2 py-1 text-[11px] text-white opacity-0 shadow-card ring-1 ring-white/10 transition-opacity duration-150 group-hover:opacity-100"
+        className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-marine-dark px-2 py-1 text-[11px] text-white opacity-0 shadow-card ring-1 ring-white/10 transition-opacity duration-150 [@media(hover:hover)]:group-hover:opacity-100"
       >
         {famille}
       </span>

@@ -6,13 +6,16 @@ import { ChevronLeft, PackageCheck, Layers, ShieldCheck, Truck } from "lucide-re
 import ImageBanniereProduit from "./ImageBanniereProduit";
 import SelecteurPlateforme from "./SelecteurPlateforme";
 import BlocPrix from "./BlocPrix";
+import BoutonAjouterPanier from "./BoutonAjouterPanier";
 import BoutonWhatsApp from "./BoutonWhatsApp";
+import Notification from "./Notification";
 import CarrouselProduits from "./CarrouselProduits";
 import Container from "./Container";
+import { usePanier } from "./PanierProvider";
 import { PRODUITS } from "@/lib/data";
 import { estMulti, famillesDuProduit, variantesDeFamille } from "@/lib/familles";
 import { lienCommandeProduit } from "@/lib/whatsapp";
-import type { Famille, Produit } from "@/lib/types";
+import type { Famille, Produit, Variante } from "@/lib/types";
 
 const INFOS_PRATIQUES = [
   { Icone: PackageCheck, label: "Disponibilité", valeur: "[À fournir]" },
@@ -21,24 +24,38 @@ const INFOS_PRATIQUES = [
   { Icone: Truck, label: "Mode de retrait", valeur: "[À fournir]" },
 ];
 
+/** La première variante en stock, sinon la première de la liste (spec §6.5). */
+function indexVarianteParDefaut(variantes: Variante[]): number {
+  const idx = variantes.findIndex((v) => v.disponibilite === "En stock");
+  return idx === -1 ? 0 : idx;
+}
+
 export default function FicheProduitClient({ produit }: { produit: Produit }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { ajouter } = usePanier();
 
   const familles = useMemo(() => famillesDuProduit(produit), [produit]);
   const multi = estMulti(produit);
   const selecteurRequis = familles.length > 1;
 
-  const familleInitiale = useMemo(() => {
+  // Famille par défaut : celle de l'URL si valide, sinon la première ayant du
+  // stock, sinon la première de la liste. Jamais "aucune" — le bloc de prix
+  // s'ouvre d'emblée, sans message "Sélectionnez une plateforme".
+  const familleParDefaut = useMemo(() => {
     const param = searchParams.get("plat");
     if (param && familles.includes(param as Famille)) return param as Famille;
-    return null;
-  }, [searchParams, familles]);
+    const avecStock = familles.find((f) =>
+      variantesDeFamille(produit, f).some((v) => v.disponibilite === "En stock")
+    );
+    return avecStock ?? familles[0] ?? null;
+  }, [searchParams, familles, produit]);
 
-  const [familleActive, setFamilleActive] = useState<Famille | null>(familleInitiale);
-  const [varianteIndex, setVarianteIndex] = useState(0);
+  const [familleChoisie, setFamilleChoisie] = useState<Famille | null>(null);
+  const [varianteIdChoisie, setVarianteIdChoisie] = useState<string | null>(null);
+  const [notification, setNotification] = useState<string | null>(null);
 
-  const familleEffective = selecteurRequis ? familleActive : familles[0] ?? null;
+  const familleEffective = selecteurRequis ? familleChoisie ?? familleParDefaut : familles[0] ?? null;
 
   const variantesAffichees = useMemo(() => {
     if (familleEffective) return variantesDeFamille(produit, familleEffective);
@@ -46,21 +63,36 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
     return [];
   }, [produit, familleEffective, multi]);
 
-  const varianteActive = variantesAffichees[varianteIndex] ?? variantesAffichees[0] ?? null;
+  // Retrouve la variante choisie par son id plutôt que par index : si elle
+  // n'existe plus dans la famille affichée (changement de famille), la
+  // sélection retombe automatiquement sur le défaut, sans état à réinitialiser.
+  const varianteIndex = useMemo(() => {
+    if (varianteIdChoisie) {
+      const idx = variantesAffichees.findIndex((v) => v.id === varianteIdChoisie);
+      if (idx !== -1) return idx;
+    }
+    return indexVarianteParDefaut(variantesAffichees);
+  }, [varianteIdChoisie, variantesAffichees]);
+
+  const varianteActive = variantesAffichees[varianteIndex] ?? null;
 
   function choisirFamille(f: Famille) {
-    setFamilleActive(f);
-    setVarianteIndex(0);
+    setFamilleChoisie(f);
     const params = new URLSearchParams(searchParams.toString());
     params.set("plat", f);
     router.replace(`/produit/${produit.id}?${params.toString()}`, { scroll: false });
+  }
+
+  function ajouterAuPanier() {
+    if (!varianteActive) return;
+    ajouter(produit.id, varianteActive.id);
+    setNotification(`${produit.nom} ajouté au panier`);
   }
 
   const produitsSimilaires = PRODUITS.filter(
     (p) => p.id !== produit.id && p.categorie === produit.categorie
   ).slice(0, 8);
 
-  const blocPret = !selecteurRequis || familleActive !== null;
   const plateformesDisponibles = produit.variantes.map((v) => v.plateforme);
 
   return (
@@ -122,38 +154,30 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
 
               {selecteurRequis && (
                 <div className="mt-5 flex flex-col gap-2.5">
-                  {familleActive === null && (
-                    <p className="text-sm text-hero-text-muted">
-                      Disponible sur {familles.length} plateformes
-                    </p>
-                  )}
                   <SelecteurPlateforme
                     familles={familles}
-                    active={familleActive}
+                    active={familleEffective}
                     onSelect={choisirFamille}
                   />
-                  {!blocPret && (
-                    <div className="flex min-h-[64px] items-center justify-center rounded-md bg-white/5 text-sm text-hero-text-muted">
-                      Sélectionnez une plateforme
-                    </div>
-                  )}
                 </div>
               )}
 
-              {blocPret && familleEffective && variantesAffichees.length > 0 && (
+              {familleEffective && variantesAffichees.length > 0 && (
                 <div className="mt-5">
                   <BlocPrix
                     variantes={variantesAffichees}
                     famille={familleEffective}
                     varianteActive={varianteIndex}
-                    onSelect={setVarianteIndex}
+                    onSelect={(i) => setVarianteIdChoisie(variantesAffichees[i]?.id ?? null)}
                   />
                 </div>
               )}
 
-              {blocPret && varianteActive && (
-                <div className="mt-5">
+              {varianteActive && (
+                <div className="mt-5 flex flex-col gap-3">
+                  <BoutonAjouterPanier onClick={ajouterAuPanier} />
                   <BoutonWhatsApp
+                    variante="contour"
                     href={lienCommandeProduit(produit, familleEffective, varianteActive.plateforme)}
                   >
                     Commander sur WhatsApp
@@ -195,6 +219,12 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
           />
         )}
       </Container>
+
+      <Notification
+        message={notification ?? ""}
+        visible={notification !== null}
+        onHide={() => setNotification(null)}
+      />
     </div>
   );
 }
