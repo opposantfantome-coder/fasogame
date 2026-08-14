@@ -98,6 +98,7 @@
 
   /* Barre supérieure */
   --header-height: 60px;
+  --bandeau-height: 36px;
 
   --font-display: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
@@ -230,4 +231,18 @@ a {
 
 .animate-bloc-prix {
   animation: bloc-prix-apparition 220ms ease-out;
+}
+
+/* Bandeau de réassurance — défilement horizontal lent (spec §5.1) */
+@keyframes bandeau-defilement {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-bandeau {
+  animation: bandeau-defilement 22s linear infinite;
 }

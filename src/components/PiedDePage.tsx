@@ -1,25 +1,39 @@
 import Link from "next/link";
 import Image from "next/image";
-import { siFacebook, siInstagram, siTiktok, siYoutube, siWhatsapp } from "simple-icons";
+import { siFacebook, siInstagram, siTiktok, siWhatsapp } from "simple-icons";
 import Container from "./Container";
 import LogoMarque from "./LogoMarque";
+import { CATEGORIES } from "@/lib/types";
 
 const RESEAUX = [
   { label: "Facebook", icon: siFacebook },
   { label: "Instagram", icon: siInstagram },
   { label: "TikTok", icon: siTiktok },
-  { label: "YouTube", icon: siYoutube },
   { label: "WhatsApp", icon: siWhatsapp },
 ];
 
 export default function PiedDePage() {
   return (
     <footer className="border-t border-border bg-marine text-white">
-      <Container className="grid grid-cols-1 gap-8 py-10 sm:grid-cols-3">
+      <Container className="grid grid-cols-1 gap-8 py-10 sm:grid-cols-4">
         <div>
           <Image src="/logo-fasogame-64.png" alt="FasoGame" width={64} height={64} />
           <p className="mt-2 font-display text-lg font-bold">FASOGAME</p>
           <p className="mt-2 text-sm text-text-secondary">[Texte de présentation à fournir]</p>
+        </div>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-text-secondary">
+            Catégories
+          </p>
+          <ul className="mt-2 flex flex-col gap-2 text-sm">
+            {CATEGORIES.map((c) => (
+              <li key={c}>
+                <Link href={`/catalogue?cat=${encodeURIComponent(c)}`} className="text-text-secondary hover:text-white">
+                  {c}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-text-secondary">

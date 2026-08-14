@@ -107,6 +107,37 @@ export default function MenuTiroir({
                 </button>
               );
             })}
+
+            {!selected && (
+              <div className="mt-2 flex flex-col gap-1 border-t border-border px-4 py-4">
+                <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-text-secondary">
+                  Accès rapide
+                </p>
+                <Link
+                  href="/catalogue?tri=recent"
+                  onClick={fermer}
+                  className="py-2 text-sm text-text-secondary transition-colors hover:text-white"
+                >
+                  Nouveautés
+                </Link>
+                <Link
+                  href="/panier"
+                  onClick={fermer}
+                  className="py-2 text-sm text-text-secondary transition-colors hover:text-white"
+                >
+                  Mon panier
+                </Link>
+                <a
+                  href={lienContact()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={fermer}
+                  className="py-2 text-sm text-text-secondary transition-colors hover:text-white"
+                >
+                  Commander via WhatsApp
+                </a>
+              </div>
+            )}
           </nav>
 
           {/* Contenu de la rubrique sélectionnée */}

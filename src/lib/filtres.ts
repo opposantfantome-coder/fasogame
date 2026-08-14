@@ -1,8 +1,8 @@
-import { estMulti, famillesDuProduit } from "./familles";
+import { estMulti, famillesDuProduit, prixMinimum } from "./familles";
 import type { Categorie, Disponibilite, Famille, Genre, Produit } from "./types";
 
 export type PlatFiltre = Famille | "Multi";
-export type Tri = "recent" | "nom";
+export type Tri = "recent" | "nom" | "prix-asc" | "prix-desc";
 
 export interface FiltresEtat {
   q: string;
@@ -37,6 +37,11 @@ function listeDepuisParam(params: URLSearchParams, cle: string): string[] {
     .filter(Boolean);
 }
 
+function triDepuisParam(valeur: string | null): Tri {
+  if (valeur === "nom" || valeur === "prix-asc" || valeur === "prix-desc") return valeur;
+  return "recent";
+}
+
 export function filtresDepuisParams(params: URLSearchParams): FiltresEtat {
   return {
     q: params.get("q") ?? "",
@@ -44,7 +49,7 @@ export function filtresDepuisParams(params: URLSearchParams): FiltresEtat {
     plats: new Set(listeDepuisParam(params, "plat") as PlatFiltre[]),
     genres: new Set(listeDepuisParam(params, "genre") as Genre[]),
     dispo: new Set(listeDepuisParam(params, "dispo") as Disponibilite[]),
-    tri: params.get("tri") === "nom" ? "nom" : "recent",
+    tri: triDepuisParam(params.get("tri")),
   };
 }
 
@@ -55,7 +60,7 @@ export function paramsDepuisFiltres(filtres: FiltresEtat): URLSearchParams {
   if (filtres.plats.size) params.set("plat", Array.from(filtres.plats).join(","));
   if (filtres.genres.size) params.set("genre", Array.from(filtres.genres).join(","));
   if (filtres.dispo.size) params.set("dispo", Array.from(filtres.dispo).join(","));
-  if (filtres.tri === "nom") params.set("tri", "nom");
+  if (filtres.tri !== "recent") params.set("tri", filtres.tri);
   return params;
 }
 
@@ -83,6 +88,18 @@ export function appliquerFiltres(produits: Produit[], filtres: FiltresEtat): Pro
 
   resultat = [...resultat].sort((a, b) => {
     if (filtres.tri === "nom") return a.nom.localeCompare(b.nom, "fr");
+
+    if (filtres.tri === "prix-asc" || filtres.tri === "prix-desc") {
+      const prixA = prixMinimum(a);
+      const prixB = prixMinimum(b);
+      // Les produits sans prix se rangent toujours en fin de liste,
+      // quel que soit le sens du tri (spec §6.3).
+      if (prixA === null && prixB === null) return 0;
+      if (prixA === null) return 1;
+      if (prixB === null) return -1;
+      return filtres.tri === "prix-asc" ? prixA - prixB : prixB - prixA;
+    }
+
     return b.dateAjout.localeCompare(a.dateAjout);
   });
 

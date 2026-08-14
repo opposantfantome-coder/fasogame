@@ -48,7 +48,7 @@ export default function BarreSuperieure() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 h-[60px] border-b text-white transition-colors duration-200 ${
+        className={`fixed inset-x-0 top-[var(--bandeau-height)] z-40 h-[60px] border-b text-white transition-colors duration-200 ${
           scrolled
             ? "border-border bg-marine/85 backdrop-blur-md"
             : "border-transparent bg-marine"

@@ -9,6 +9,13 @@ import type { Categorie, Disponibilite, Famille, Genre } from "@/lib/types";
 
 const DISPONIBILITES: Disponibilite[] = ["En stock", "Sur commande"];
 
+const LABEL_TRI: Record<Tri, string> = {
+  recent: "Plus récent",
+  "prix-asc": "Prix croissant",
+  "prix-desc": "Prix décroissant",
+  nom: "Nom A→Z",
+};
+
 function toggleDansSet<T>(set: Set<T>, valeur: T): Set<T> {
   const copie = new Set(set);
   if (copie.has(valeur)) copie.delete(valeur);
@@ -115,9 +122,9 @@ export default function PanneauFiltres({
 
         <div className="flex-1 overflow-y-auto px-4">
           <Section titre="Trier">
-            {(["recent", "nom"] as Tri[]).map((t) => (
+            {(["recent", "prix-asc", "prix-desc", "nom"] as Tri[]).map((t) => (
               <Case key={t} active={filtres.tri === t} onClick={() => set("tri", t)}>
-                {t === "recent" ? "Plus récent" : "Nom A→Z"}
+                {LABEL_TRI[t]}
               </Case>
             ))}
           </Section>
