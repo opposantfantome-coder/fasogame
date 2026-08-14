@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import BandeauReassurance from "@/components/BandeauReassurance";
 import BarreSuperieure from "@/components/BarreSuperieure";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main className="flex-1 pt-[calc(var(--bandeau-height)+var(--header-height))]">{children}</main>
           <PiedDePage />
         </PanierProvider>
+        <Analytics />
       </body>
     </html>
   );
