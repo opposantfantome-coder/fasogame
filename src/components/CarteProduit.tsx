@@ -96,7 +96,7 @@ export default function CarteProduit({ produit }: { produit: Produit }) {
             <button
               onClick={clicAjout}
               aria-label={`Ajouter ${produit.nom} au panier`}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red text-white transition-colors hover:bg-red-dark"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red text-white transition-colors hover:bg-red-dark"
             >
               <Plus className="h-5 w-5" />
             </button>

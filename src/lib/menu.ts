@@ -83,7 +83,7 @@ export const RUBRIQUES_MENU: RubriqueMenu[] = [
       { label: "PlayStation", href: "/catalogue?cat=Cartes cadeaux&plat=PlayStation" },
       { label: "Xbox", href: "/catalogue?cat=Cartes cadeaux&plat=Xbox" },
       { label: "Nintendo", href: "/catalogue?cat=Cartes cadeaux&plat=Nintendo" },
-      { label: "Steam", href: "/catalogue?cat=Cartes cadeaux&plat=Multi" },
+      { label: "Steam", href: "/catalogue?cat=Cartes cadeaux&plat=Multi-plateformes" },
     ],
     liensSecondaires: [{ label: "Toutes les cartes", href: "/catalogue?cat=Cartes cadeaux" }],
   },

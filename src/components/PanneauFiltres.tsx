@@ -115,7 +115,7 @@ export default function PanneauFiltres({
       >
         <div className="flex shrink-0 items-center justify-between border-b border-card-border px-4 py-4">
           <h2 className="font-display text-base font-semibold text-marine">Trier et filtrer</h2>
-          <button onClick={onClose} aria-label="Fermer" className="flex h-9 w-9 items-center justify-center">
+          <button onClick={onClose} aria-label="Fermer" className="flex h-11 w-11 items-center justify-center">
             <X className="h-5 w-5 text-text-muted" />
           </button>
         </div>

@@ -2,9 +2,9 @@ import { FAMILLE_ACCENT, formaterPrix } from "@/lib/familles";
 import type { Disponibilite, Famille, Variante } from "@/lib/types";
 
 const DISPO_COULEUR: Record<Disponibilite, string> = {
-  "En stock": "#34d399",
-  "Sur commande": "#f59e0b",
-  Épuisé: "#8890c4",
+  "En stock": "var(--dispo-stock)",
+  "Sur commande": "var(--dispo-commande)",
+  Épuisé: "var(--dispo-epuise)",
 };
 
 export default function BlocPrix({

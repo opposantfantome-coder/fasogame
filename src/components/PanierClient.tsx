@@ -74,7 +74,7 @@ export default function PanierClient() {
                   <button
                     onClick={() => supprimer(ligne.produitId, ligne.varianteId)}
                     aria-label={`Retirer ${produit.nom} du panier`}
-                    className="shrink-0 text-text-muted transition-colors hover:text-red"
+                    className="flex h-11 w-11 shrink-0 items-center justify-center text-text-muted transition-colors hover:text-red"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -88,7 +88,7 @@ export default function PanierClient() {
                           : modifierQuantite(ligne.produitId, ligne.varianteId, ligne.quantite - 1)
                       }
                       aria-label={auMinimum ? "Retirer l'article" : "Diminuer la quantité"}
-                      className="flex h-8 w-8 items-center justify-center rounded border border-card-border text-text transition-colors hover:bg-bg-alt"
+                      className="flex h-11 w-11 items-center justify-center rounded border border-card-border text-text transition-colors hover:bg-bg-alt"
                     >
                       {auMinimum ? (
                         <Trash2 className="h-3.5 w-3.5" />
@@ -102,7 +102,7 @@ export default function PanierClient() {
                       onClick={() => modifierQuantite(ligne.produitId, ligne.varianteId, ligne.quantite + 1)}
                       disabled={ligne.quantite >= QUANTITE_MAX}
                       aria-label="Augmenter la quantité"
-                      className="flex h-8 w-8 items-center justify-center rounded border border-card-border text-text transition-colors hover:bg-bg-alt disabled:cursor-not-allowed disabled:opacity-40"
+                      className="flex h-11 w-11 items-center justify-center rounded border border-card-border text-text transition-colors hover:bg-bg-alt disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       <Plus className="h-3.5 w-3.5" />
                     </button>

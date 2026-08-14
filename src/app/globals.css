@@ -67,6 +67,20 @@
   --fam-multi-border: rgba(107, 114, 128, 0.45);
   --fam-multi-active: rgba(107, 114, 128, 0.22);
 
+  /* Disponibilité — pastille dans le bloc de prix (BlocPrix) */
+  --dispo-stock: #34d399;
+  --dispo-commande: #f59e0b;
+  --dispo-epuise: #8890c4;
+
+  /* Fiche produit — dégradé sombre du bloc héros, gauche → droite */
+  --fg-hero-gradient: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.6) 35%,
+    rgba(0, 0, 0, 0.05) 70%,
+    transparent 100%
+  );
+
   /* Action WhatsApp — exclusivement le bouton de commande */
   --whatsapp: #25d366;
   --whatsapp-dark: #1ebe5b;

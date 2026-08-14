@@ -76,6 +76,10 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
 
   const varianteActive = variantesAffichees[varianteIndex] ?? null;
 
+  // Famille entièrement épuisée : le bouton d'ajout devient "Prévenez-moi" (spec §6.5).
+  const toutesEpuisees =
+    variantesAffichees.length > 0 && variantesAffichees.every((v) => v.disponibilite === "Épuisé");
+
   function choisirFamille(f: Famille) {
     setFamilleChoisie(f);
     const params = new URLSearchParams(searchParams.toString());
@@ -109,10 +113,7 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0.05) 70%, transparent 100%)",
-            }}
+            style={{ background: "var(--fg-hero-gradient)" }}
           />
           <button
             onClick={() => router.back()}
@@ -175,7 +176,13 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
 
               {varianteActive && (
                 <div className="mt-5 flex flex-col gap-3">
-                  <BoutonAjouterPanier onClick={ajouterAuPanier} />
+                  {toutesEpuisees ? (
+                    <BoutonAjouterPanier onClick={() => {}} disabled>
+                      Prévenez-moi — [À définir]
+                    </BoutonAjouterPanier>
+                  ) : (
+                    <BoutonAjouterPanier onClick={ajouterAuPanier} />
+                  )}
                   <BoutonWhatsApp
                     variante="contour"
                     href={lienCommandeProduit(produit, familleEffective, varianteActive.plateforme)}

@@ -43,7 +43,7 @@ export default function ChampRecherche({
           type="button"
           onClick={() => onChange("")}
           aria-label="Effacer la recherche"
-          className="flex h-6 w-6 shrink-0 items-center justify-center"
+          className="flex h-11 w-11 shrink-0 items-center justify-center"
         >
           <X className={`h-4 w-4 ${variante === "sombre" ? "text-text-secondary" : "text-text-muted"}`} />
         </button>

@@ -37,7 +37,7 @@ export default function VoletVariantes({
           <h2 className="font-display text-base font-semibold text-marine">
             Choisissez votre plateforme
           </h2>
-          <button onClick={onClose} aria-label="Fermer" className="flex h-9 w-9 items-center justify-center">
+          <button onClick={onClose} aria-label="Fermer" className="flex h-11 w-11 items-center justify-center">
             <X className="h-5 w-5 text-text-muted" />
           </button>
         </div>
