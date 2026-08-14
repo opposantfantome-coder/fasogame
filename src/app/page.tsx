@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siPlaystation } from "simple-icons";
 import { Gamepad2, History, Joystick } from "lucide-react";
 import CarrouselProduits from "@/components/CarrouselProduits";
@@ -49,13 +50,30 @@ export default function PageAccueil() {
 
       <section className="bg-bg-alt">
         <Container className="py-6">
-          <div className="flex h-[220px] flex-col items-start justify-end gap-3 rounded-lg border border-card-border bg-card-bg p-5 card-shadow">
-            <p className="max-w-xs text-lg font-semibold leading-snug text-marine">
+          <div className="relative flex h-[220px] flex-col items-start justify-end gap-3 overflow-hidden rounded-lg p-5 card-shadow">
+            {/*
+              Visuel temporaire (jaquette EA Sports FC 26) en attendant un
+              visuel fourni par la boutique. À remplacer, pas à garder.
+            */}
+            <Image
+              src="/produits/ea-sports-fc-26-banniere.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 1200px) 1200px, 100vw"
+              priority
+              className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{ background: "var(--fg-hero-gradient)" }}
+            />
+            <p className="relative max-w-xs text-lg font-semibold leading-snug text-white">
               [Accroche à fournir]
             </p>
             <Link
               href="/catalogue"
-              className="rounded-pill bg-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-dark"
+              className="relative rounded-pill bg-red px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-dark"
             >
               Voir le catalogue
             </Link>
