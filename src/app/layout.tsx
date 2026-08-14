@@ -29,6 +29,14 @@ export const metadata: Metadata = {
     description: "[Texte à fournir]",
     type: "website",
     locale: "fr_FR",
+    images: [
+      {
+        url: "/logo-fasogame.png",
+        width: 512,
+        height: 512,
+        alt: "FasoGame",
+      },
+    ],
   },
 };
 

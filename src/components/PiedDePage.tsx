@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siFacebook, siInstagram, siTiktok, siYoutube, siWhatsapp } from "simple-icons";
 import Container from "./Container";
 import LogoMarque from "./LogoMarque";
@@ -16,7 +17,8 @@ export default function PiedDePage() {
     <footer className="border-t border-border bg-marine text-white">
       <Container className="grid grid-cols-1 gap-8 py-10 sm:grid-cols-3">
         <div>
-          <p className="font-display text-lg font-bold">FASOGAME</p>
+          <Image src="/logo-fasogame-64.png" alt="FasoGame" width={64} height={64} />
+          <p className="mt-2 font-display text-lg font-bold">FASOGAME</p>
           <p className="mt-2 text-sm text-text-secondary">[Texte de présentation à fournir]</p>
         </div>
         <div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, Search, ShoppingCart, X } from "lucide-react";
 import MenuTiroir from "./MenuTiroir";
 import ChampRecherche from "./ChampRecherche";
@@ -92,8 +93,9 @@ export default function BarreSuperieure() {
                 </button>
               </div>
 
-              <Link href="/" className="font-display text-lg font-bold tracking-tight whitespace-nowrap">
-                FASOGAME
+              <Link href="/" className="flex items-center gap-2 whitespace-nowrap">
+                <Image src="/logo-fasogame-128.png" alt="FasoGame" width={40} height={40} priority className="h-10 w-10" />
+                <span className="font-display text-lg font-bold tracking-tight text-white">FASOGAME</span>
               </Link>
 
               <div className="flex flex-1 items-center justify-end gap-1">
