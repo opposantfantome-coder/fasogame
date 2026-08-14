@@ -2,11 +2,11 @@ import type { Famille, Plateforme } from "./types";
 import type { Produit } from "./types";
 
 /**
- * [À CONFIRMER] Numéro WhatsApp de la boutique — inconnu à ce stade.
- * Tant qu'il n'est pas fourni, les liens ouvrent le sélecteur de contact
- * WhatsApp plutôt qu'un numéro inventé.
+ * [À CONFIRMER PAR LE GÉRANT] Numéro WhatsApp de la boutique de Ouagadougou,
+ * relevé sur les publications FasoGame — pas encore confirmé directement
+ * par le gérant. Format wa.me : indicatif + numéro, sans espaces ni "+".
  */
-export const WHATSAPP_NUMERO: string | null = null;
+export const WHATSAPP_NUMERO: string | null = "22670942309";
 
 /** Construction générique d'un lien wa.me — pas de sémantique "commande" ici. */
 export function lienWhatsApp(message: string): string {
