@@ -1,16 +1,34 @@
+import Image from "next/image";
 import { ICONES_CATEGORIE } from "@/lib/iconesCategorie";
 import type { Categorie } from "@/lib/types";
 
+/** Bannière 16:9 du bloc héros : image réelle si elle existe, sinon placeholder neutre (spec §11). */
 export default function ImageBanniereProduit({
+  imageBanniere,
   nom,
   categorie,
   className,
 }: {
-  id: string;
+  imageBanniere: string | null;
   nom: string;
   categorie: Categorie;
   className?: string;
 }) {
+  if (imageBanniere) {
+    return (
+      <div className={`relative ${className ?? ""}`}>
+        <Image
+          src={imageBanniere}
+          alt={nom}
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+      </div>
+    );
+  }
+
   const Icone = ICONES_CATEGORIE[categorie];
 
   return (

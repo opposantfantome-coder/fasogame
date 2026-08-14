@@ -101,10 +101,10 @@ export default function FicheProduitClient({ produit }: { produit: Produit }) {
       <section className="relative w-full overflow-hidden bg-carbon">
         <div className="relative h-[50vh] w-full md:h-[70vh]">
           <ImageBanniereProduit
-            id={produit.id}
+            imageBanniere={produit.imageBanniere}
             nom={produit.nom}
             categorie={produit.categorie}
-            className="absolute inset-0 h-full w-full"
+            className="h-full w-full"
           />
           <div
             aria-hidden="true"

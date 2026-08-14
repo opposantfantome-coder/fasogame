@@ -57,7 +57,7 @@ export default function CarteProduit({ produit }: { produit: Produit }) {
         {/* 1. Étiquette de disponibilité + 2. Image carrée 1:1 */}
         <div className="relative aspect-square w-full overflow-hidden">
           <ImageProduit
-            id={produit.id}
+            images={produit.images}
             nom={produit.nom}
             categorie={produit.categorie}
             className="h-full w-full transition-transform duration-300 group-hover:scale-105"

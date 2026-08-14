@@ -157,7 +157,9 @@ totalPanier(lignes, catalogue)  → { sousTotal, nombreArticles }
 
 ### 2.6 Jeu de données d'essai
 
-18 produits fictifs couvrant les cinq catégories et les cinq familles (PlayStation, Xbox, Nintendo, Rétro, Multi-plateformes), dont au moins trois multi-plateformes. Noms de produits réels acceptés (ce sont des titres publics). Renseigner les prix connus ci-dessus — quatre manettes mono-variantes (prix exact) et trois jeux PS4 multi-variantes (« à partir de ») — soit sept produits tarifés sur dix-huit ; laisser les autres à `null`.
+22 produits alignés sur les visuels réels disponibles dans `public/produits/` (voir `fasogame-images-correspondance.md` à la racine). Trois catégories sur cinq sont couvertes — Jeux, Consoles, Manettes — car aucun visuel réel n'existe encore pour Accessoires et Cartes cadeaux : ces catégories restent vides plutôt que peuplées de produits fictifs, en cohérence avec le principe de sincérité commerciale (§«Provenance» du document de correspondance). De même, seules trois familles sur cinq sont représentées (PlayStation, Xbox, Nintendo) ; aucun produit Rétro ni Multi-plateformes dans ce jeu de données pour l'instant.
+
+Six prix connus : cinq manettes (toutes mono-variantes, donc prix exact sur leur carte) et le CD de jeu PS4 à 10 000 FCFA, appliqué à la seule variante PS4 de cinq jeux multi-plateformes existant réellement sur PS4 (`gta-v`, `elden-ring`, `mxgp-2020`, `assassins-creed-odyssey`, `ea-sports-fc-26`) — leurs autres variantes restent à `null`, le prix des versions nouvelle génération n'étant pas connu. Ce sont ces cinq jeux qui démontrent le cas « À partir de 10 000 FCFA » de la carte produit (§1.1), mécanisme central de la v3. Les plateformes des jeux et consoles sont des suggestions non validées, à confirmer comme les prix ; laisser tout le reste à `null`, ne rien inventer.
 
 ---
 

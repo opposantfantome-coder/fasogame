@@ -55,10 +55,11 @@ export default function PanierClient() {
             >
               <div className="h-20 w-20 shrink-0 overflow-hidden rounded">
                 <ImageProduit
-                  id={produit.id}
+                  images={produit.images}
                   nom={produit.nom}
                   categorie={produit.categorie}
                   className="h-full w-full"
+                  sizes="80px"
                 />
               </div>
               <div className="flex flex-1 flex-col gap-1">

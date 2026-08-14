@@ -69,9 +69,10 @@ export interface Produit {
   id: string;
   nom: string;
   categorie: Categorie;
+  /** Chemins réels (`/produits/<slug>.jpg`) si l'image existe ; [] sinon (placeholder). */
   images: string[];
-  /** Bannière paysage 16:9, distincte de la vignette carrée (fiche produit, bloc héros). */
-  imageBanniere: string;
+  /** Bannière paysage 16:9 (fiche produit, bloc héros) ; `null` si aucune n'existe (placeholder). */
+  imageBanniere: string | null;
   description: string;
   genres?: Genre[];
   variantes: Variante[];
