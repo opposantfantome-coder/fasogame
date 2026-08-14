@@ -247,13 +247,16 @@ a {
   animation: bloc-prix-apparition 220ms ease-out;
 }
 
-/* Bandeau de réassurance — défilement horizontal lent (spec §5.1) */
+/* Bandeau de réassurance — une passe : entre par la droite, sort par la
+   gauche. Les deux extrémités (+100%/-100%) sont hors du conteneur
+   (overflow: hidden sur le parent), donc la reprise en boucle est
+   invisible : rien n'est jamais coupé à l'écran (spec §5.1). */
 @keyframes bandeau-defilement {
   from {
-    transform: translateX(0);
+    transform: translateX(100%);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 

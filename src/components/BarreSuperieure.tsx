@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, Search, ShoppingCart, X } from "lucide-react";
+import { siWhatsapp } from "simple-icons";
 import MenuTiroir from "./MenuTiroir";
 import ChampRecherche from "./ChampRecherche";
 import Container from "./Container";
+import LogoMarque from "./LogoMarque";
 import { usePanier } from "./PanierProvider";
 import { lienContact } from "@/lib/whatsapp";
 
@@ -95,7 +97,9 @@ export default function BarreSuperieure() {
 
               <Link href="/" className="flex items-center gap-2 whitespace-nowrap">
                 <Image src="/logo-fasogame-128.png" alt="FasoGame" width={40} height={40} priority className="h-10 w-10" />
-                <span className="font-display text-lg font-bold tracking-tight text-white">FASOGAME</span>
+                <span className="hidden font-display text-lg font-bold tracking-tight text-white md:inline">
+                  FASOGAME
+                </span>
               </Link>
 
               <div className="flex flex-1 items-center justify-end gap-1">
@@ -115,7 +119,16 @@ export default function BarreSuperieure() {
                   href={lienContact()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-pill bg-red px-3 py-2 text-xs font-semibold whitespace-nowrap transition-colors hover:bg-red-dark sm:text-sm"
+                  aria-label="Contactez-nous sur WhatsApp"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red transition-colors hover:bg-red-dark md:hidden"
+                >
+                  <LogoMarque icon={siWhatsapp} className="h-5 w-5" />
+                </a>
+                <a
+                  href={lienContact()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden rounded-pill bg-red px-3 py-2 text-sm font-semibold whitespace-nowrap transition-colors hover:bg-red-dark md:inline-flex md:items-center"
                 >
                   Contactez-nous
                 </a>
